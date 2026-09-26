@@ -1,0 +1,1645 @@
+/* ==========================================================================
+   FOR MARYAM — BOTANICAL EDITORIAL STYLESHEET
+   Crafted with warm paper textures, gentle organic motion, and living tulips
+   ========================================================================== */
+
+:root {
+  /* Color Palette — Warm Botanical & Paper */
+  --bg-parchment: #FBF8F3;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F6F1EA;
+  --text-ink: #202422;
+  --text-muted: #6B726D;
+  --text-whisper: #8F9690;
+  
+  /* Tulip Tones */
+  --tulip-deep-red: #8B2635;
+  --tulip-crimson: #B83A4B;
+  --tulip-rose: #D35D6E;
+  --tulip-blush: #E88B98;
+  --tulip-soft-pink: #F7CAD0;
+  
+  /* Botanical Foliage */
+  --leaf-deep-green: #2D4A34;
+  --leaf-sage: #4E6E56;
+  --leaf-moss: #6D8E76;
+  --leaf-pale: #D4DFD7;
+  
+  /* Warm Accents */
+  --amber-gold: #DDA15E;
+  --sand-warm: #E6D8C8;
+  --border-delicate: rgba(78, 110, 86, 0.15);
+  --border-card: rgba(45, 74, 52, 0.1);
+  --shadow-soft: 0 10px 30px -10px rgba(45, 74, 52, 0.08);
+  --shadow-lift: 0 18px 40px -12px rgba(45, 74, 52, 0.16);
+  --shadow-tactile: 0 4px 14px rgba(45, 74, 52, 0.06);
+
+  /* Fonts */
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hand: 'Reenie Beanie', cursive;
+
+  /* Transitions */
+  --ease-organic: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-parchment);
+  color: var(--text-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtly Textured Archival Paper Grain */
+.paper-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: radial-gradient(#202422 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Growing Tulips Canvas in Background */
+.tulip-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 1.2s ease;
+}
+
+/* Discreet Sound Toggle */
+.sound-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-delicate);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--leaf-sage);
+  box-shadow: var(--shadow-tactile);
+  transition: all 0.3s var(--ease-organic);
+}
+
+.sound-toggle:hover {
+  transform: scale(1.06);
+  color: var(--tulip-crimson);
+  border-color: var(--tulip-blush);
+}
+
+.sound-toggle:active {
+  transform: scale(0.94);
+}
+
+.sound-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sound-toggle .sound-icon-off {
+  display: none;
+}
+
+.sound-toggle.muted .sound-icon-on {
+  display: none;
+}
+
+.sound-toggle.muted .sound-icon-off {
+  display: block;
+}
+
+.sound-tooltip {
+  position: absolute;
+  bottom: -28px;
+  font-size: 11px;
+  color: var(--text-whisper);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.sound-toggle:hover .sound-tooltip {
+  opacity: 1;
+}
+
+/* App Main Container */
+.app-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 48px;
+}
+
+/* Stage Transitions */
+.stage {
+  display: none;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 0.7s var(--ease-organic), transform 0.7s var(--ease-organic);
+}
+
+.stage.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.stage.exit {
+  opacity: 0;
+  transform: translateY(-24px) scale(0.97);
+  pointer-events: none;
+}
+
+.stage-content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Editorial Typography */
+.section-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--leaf-sage);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.stage-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 5.5vw, 34px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--text-ink);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.stage-subtext {
+  font-size: clamp(14px, 3.8vw, 16px);
+  color: var(--text-muted);
+  max-width: 440px;
+  margin-bottom: 28px;
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.note-handwriting {
+  font-family: var(--font-hand);
+  font-size: 23px;
+  color: var(--tulip-crimson);
+  line-height: 1.2;
+}
+
+.whisper-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--leaf-moss);
+  margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   STAGE 0: OPENING
+   ========================================================================== */
+.opening-content {
+  min-height: 80vh;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.solitary-tulip-wrap {
+  width: 120px;
+  height: 220px;
+  margin: 0 auto 36px;
+  cursor: pointer;
+  position: relative;
+  animation: tulip-breeze 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.solitary-tulip-wrap:hover {
+  animation-duration: 3s;
+}
+
+.botanical-tulip-hero {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 16px rgba(45, 74, 52, 0.08));
+}
+
+.tulip-bloom-group {
+  transform-origin: 60px 78px;
+  transition: transform 0.6s var(--ease-spring);
+}
+
+.solitary-tulip-wrap:hover .tulip-bloom-group {
+  transform: scale(1.05) rotate(2deg);
+}
+
+@keyframes tulip-breeze {
+  0%, 100% {
+    transform: rotate(0deg) skewX(0deg);
+  }
+  25% {
+    transform: rotate(2.5deg) skewX(1deg);
+  }
+  75% {
+    transform: rotate(-2deg) skewX(-0.8deg);
+  }
+}
+
+.opening-name {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 8vw, 48px);
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: var(--tulip-deep-red);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.opening-line {
+  font-family: var(--font-sans);
+  font-size: clamp(17px, 4vw, 20px);
+  color: var(--text-ink);
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.delayed-fade {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fade-up-reveal 1s var(--ease-organic) forwards;
+}
+
+.line-1 { animation-delay: 1.2s; }
+.line-2 { animation-delay: 2.6s; }
+.line-3 { animation-delay: 4.0s; }
+
+@keyframes fade-up-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.button-wrap {
+  margin-top: 32px;
+}
+
+/* Tactile Buttons System */
+.btn-tactile {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.35s var(--ease-organic);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary {
+  background: var(--tulip-crimson);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background: var(--tulip-deep-red);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.btn-primary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-primary:disabled {
+  background: #D8D2C9;
+  color: #8C847B;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--text-ink);
+  border: 1px solid var(--border-delicate);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-subtle);
+  border-color: var(--leaf-sage);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: var(--leaf-deep-green);
+  color: #FFFFFF;
+}
+
+.btn-danger:hover {
+  background: #1C3322;
+  transform: translateY(-2px);
+}
+
+.btn-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.btn-tactile:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   STAGE 1: GAME PART 1 (MYSTERY OBJECTS)
+   ========================================================================== */
+.mystery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 480px) {
+  .mystery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mystery-card:last-child {
+    grid-column: span 2;
+    max-width: 60%;
+    margin: 0 auto;
+  }
+}
+
+.mystery-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 18px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.35s var(--ease-organic);
+  box-shadow: var(--shadow-tactile);
+}
+
+.mystery-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--tulip-blush);
+  box-shadow: var(--shadow-soft);
+}
+
+.mystery-card:active {
+  transform: scale(0.96);
+}
+
+.mystery-card.selected {
+  background: #FFFDF9;
+  border-color: var(--tulip-crimson);
+  box-shadow: 0 0 0 2px var(--tulip-rose), var(--shadow-soft);
+}
+
+.card-art {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+.mystery-card:hover .card-art {
+  transform: scale(1.1);
+}
+
+.card-art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-ink);
+}
+
+/* Reaction Banner */
+.reaction-box {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-delicate);
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-top: 12px;
+  width: 100%;
+  box-shadow: var(--shadow-soft);
+  animation: pop-in 0.45s var(--ease-spring) forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.reaction-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+  color: var(--text-ink);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   STAGE 2: GAME PART 2 (THE FISH)
+   ========================================================================== */
+.swimming-fish-stage {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  margin: 0 auto 20px;
+}
+
+.interactive-fish {
+  width: 100%;
+  height: 100%;
+  animation: fish-swim 4s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+.fish-tail {
+  animation: tail-wag 0.8s ease-in-out infinite alternate;
+  transform-origin: 100px 45px;
+}
+
+@keyframes fish-swim {
+  0% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(-12px) rotate(3deg); }
+}
+
+@keyframes tail-wag {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(8deg); }
+}
+
+.interactive-fish.swim-away {
+  animation: fish-dart 1.4s var(--ease-organic) forwards !important;
+}
+
+@keyframes fish-dart {
+  0% { transform: translateX(0) scale(1); opacity: 1; }
+  30% { transform: translateX(-30px) scale(1.1); }
+  100% { transform: translateX(450px) scale(0.6); opacity: 0; }
+}
+
+.bubbles-stream {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(69, 123, 157, 0.25);
+  border: 1px solid rgba(69, 123, 157, 0.4);
+  animation: float-bubble 3s ease-in infinite;
+}
+
+.b1 { width: 8px; height: 8px; left: -10px; animation-delay: 0s; }
+.b2 { width: 6px; height: 6px; left: -20px; animation-delay: 1.2s; }
+.b3 { width: 10px; height: 10px; left: -30px; animation-delay: 2.1s; }
+
+@keyframes float-bubble {
+  0% { transform: translateY(0) scale(0.8); opacity: 0.8; }
+  100% { transform: translateY(-60px) scale(1.4); opacity: 0; }
+}
+
+.options-pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.pill-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-delicate);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-ink);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-organic);
+  box-shadow: var(--shadow-tactile);
+}
+
+.pill-btn:hover {
+  border-color: var(--amber-gold);
+  transform: translateY(-2px);
+  background: #FFFDF9;
+}
+
+.pill-btn:active {
+  transform: scale(0.96);
+}
+
+.pill-btn.selected {
+  background: var(--amber-gold);
+  color: #FFFFFF;
+  border-color: var(--amber-gold);
+  box-shadow: 0 4px 15px rgba(221, 161, 94, 0.4);
+}
+
+/* ==========================================================================
+   STAGE 3: GAME PART 3 (THE DOG JOKE)
+   ========================================================================== */
+.dog-stage-content {
+  min-height: 480px;
+  justify-content: center;
+}
+
+.dog-container {
+  width: 180px;
+  height: 140px;
+  margin: 0 auto 16px;
+  position: relative;
+  animation: dog-approach 1s var(--ease-spring) forwards;
+}
+
+@keyframes dog-approach {
+  from {
+    transform: translateX(-150px) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.dog-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dog-tail {
+  animation: tail-wag 0.5s ease-in-out infinite alternate;
+  transform-origin: 122px 70px;
+}
+
+.dog-bark-cloud {
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-delicate);
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  box-shadow: var(--shadow-tactile);
+  animation: bark-pulse 2s infinite ease-in-out;
+}
+
+@keyframes bark-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1) rotate(4deg); }
+}
+
+.dog-container.dog-flee {
+  animation: dog-sprint 0.8s var(--ease-organic) forwards !important;
+}
+
+@keyframes dog-sprint {
+  0% { transform: translateX(0) scaleX(1); }
+  20% { transform: translateX(-20px) scaleX(-1); }
+  100% { transform: translateX(500px) scaleX(-1); opacity: 0; }
+}
+
+.dog-actions {
+  margin-top: 24px;
+}
+
+/* ==========================================================================
+   STAGE 4: THE REVEAL
+   ========================================================================== */
+.reveal-content {
+  min-height: 70vh;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.reveal-sequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.reveal-step {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1s var(--ease-organic), transform 1s var(--ease-organic);
+}
+
+.reveal-step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-1, .step-2, .step-4, .step-5, .step-6 {
+  font-size: clamp(17px, 4.2vw, 21px);
+  color: var(--text-ink);
+  font-weight: 300;
+}
+
+.main-proposal-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 6.5vw, 42px);
+  font-weight: 500;
+  color: var(--tulip-deep-red);
+  letter-spacing: -0.5px;
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+.choose-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--leaf-deep-green);
+  margin-top: 10px;
+}
+
+.btn-bloom {
+  padding: 18px 44px;
+  font-size: 16px;
+  animation: bloom-pulse 3s infinite ease-in-out;
+}
+
+@keyframes bloom-pulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(184, 58, 75, 0.25); }
+  50% { box-shadow: 0 16px 40px rgba(184, 58, 75, 0.45); transform: translateY(-2px); }
+}
+
+/* ==========================================================================
+   STAGE 5: DATE SELECTION (3 WEEKENDS)
+   ========================================================================== */
+.date-planning-layout {
+  width: 100%;
+}
+
+.planning-header {
+  margin-bottom: 28px;
+}
+
+.step-indicator {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--leaf-moss);
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.weekends-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.weekend-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-tactile);
+  text-align: left;
+  transition: all 0.3s var(--ease-organic);
+}
+
+.weekend-card:hover {
+  border-color: var(--leaf-sage);
+}
+
+.weekend-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--leaf-deep-green);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weekend-title-dates {
+  font-size: 13.5px;
+  font-family: var(--font-sans);
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.day-choice-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.day-btn {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-delicate);
+  border-radius: 14px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-organic);
+}
+
+.day-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--tulip-blush);
+  transform: translateY(-2px);
+}
+
+.day-btn:active {
+  transform: scale(0.97);
+}
+
+.day-btn.selected {
+  background: var(--tulip-crimson);
+  border-color: var(--tulip-crimson);
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(184, 58, 75, 0.3);
+}
+
+.day-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.day-date {
+  font-size: 12.5px;
+  opacity: 0.85;
+}
+
+.planning-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   STAGE 6: TIME SELECTION
+   ========================================================================== */
+.time-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.time-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: var(--shadow-tactile);
+  transition: all 0.3s var(--ease-organic);
+}
+
+.time-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--leaf-sage);
+  box-shadow: var(--shadow-soft);
+}
+
+.time-card:active {
+  transform: scale(0.98);
+}
+
+.time-card.featured {
+  border-color: rgba(221, 161, 94, 0.5);
+  background: #FFFDF9;
+}
+
+.time-badge {
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  background: var(--amber-gold);
+  color: #FFFFFF;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(221, 161, 94, 0.3);
+}
+
+.time-card.selected {
+  border-color: var(--tulip-crimson);
+  box-shadow: 0 0 0 2px var(--tulip-crimson), var(--shadow-soft);
+  background: #FFFFFF;
+}
+
+.time-icon-art {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-icon-art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.time-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-grow: 1;
+}
+
+.time-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-ink);
+}
+
+.time-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Custom time input card */
+.custom-time-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.custom-time-input-wrap input[type="time"] {
+  border: 1px solid var(--border-delicate);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-ink);
+  background: var(--bg-card-subtle);
+  outline: none;
+}
+
+.btn-micro {
+  background: var(--leaf-sage);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   STAGE 7: DATE OPTIONS (THE EXPERIENCES)
+   ========================================================================== */
+.date-experiences-layout {
+  width: 100%;
+}
+
+.experiences-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.experience-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 24px 22px;
+  text-align: left;
+  box-shadow: var(--shadow-tactile);
+  transition: all 0.4s var(--ease-organic);
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card:hover {
+  border-color: var(--tulip-blush);
+  box-shadow: var(--shadow-soft);
+}
+
+.experience-card.selected {
+  border-color: var(--tulip-crimson);
+  box-shadow: 0 0 0 2px var(--tulip-crimson), var(--shadow-lift);
+}
+
+.exp-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.exp-number {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tulip-crimson);
+  letter-spacing: 1px;
+}
+
+.exp-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-ink);
+}
+
+.exp-quote {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.exp-interactive-art {
+  background: var(--bg-card-subtle);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 110px;
+}
+
+.interactive-hint {
+  font-size: 11px;
+  color: var(--text-whisper);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Experience 1: Path Visual */
+.path-art-container {
+  overflow: hidden;
+}
+
+.day-path-svg {
+  width: 100%;
+  max-width: 320px;
+}
+
+.animated-journey-path {
+  animation: stroke-drift 12s linear infinite;
+}
+
+@keyframes stroke-drift {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+.node-label {
+  font-size: 8px;
+  font-family: var(--font-sans);
+  fill: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Experience 2: Landscape Visual */
+.landscape-art-container {
+  cursor: pointer;
+}
+
+.landscape-svg {
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.5s var(--ease-organic);
+}
+
+.landscape-art-container:hover .landscape-svg {
+  transform: scale(1.03);
+}
+
+.landscape-tulips {
+  animation: tulip-breeze 4s ease-in-out infinite;
+  transform-origin: 165px 85px;
+}
+
+/* Experience 3: Bowling Interactive Lane */
+.bowling-art-container {
+  cursor: pointer;
+  user-select: none;
+}
+
+.bowling-lane {
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.bowling-pins {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.pin {
+  width: 10px;
+  height: 24px;
+  background: #FFFFFF;
+  border: 1.5px solid #6B726D;
+  border-radius: 5px 5px 2px 2px;
+  position: relative;
+  transition: all 0.5s var(--ease-spring);
+}
+
+.pin::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--tulip-crimson);
+}
+
+.pin.knocked {
+  transform: translateY(12px) rotate(75deg);
+  opacity: 0.3;
+}
+
+.bowling-ball-track {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.interactive-bowling-ball {
+  width: 36px;
+  height: 36px;
+  cursor: grab;
+  transition: transform 0.6s var(--ease-spring);
+}
+
+.interactive-bowling-ball.rolled {
+  transform: translateY(-48px) rotate(360deg) scale(0.85);
+}
+
+/* Experience 4: Sketchpad Canvas */
+.drawing-art-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.sketchpad-frame {
+  background: #FFFFFF;
+  border: 1px dashed var(--border-delicate);
+  border-radius: 12px;
+  position: relative;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+#mini-sketch-canvas {
+  display: block;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+.pencil-cursor {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  pointer-events: none;
+  animation: pencil-wiggle 3s ease-in-out infinite;
+}
+
+@keyframes pencil-wiggle {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-15deg); }
+}
+
+.draw-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding: 0 4px;
+}
+
+.btn-text-only {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--tulip-crimson);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* Experience 5: Wax Envelope */
+.wax-envelope {
+  position: relative;
+  width: 130px;
+  height: 80px;
+  background: #EDE4D8;
+  border: 1px solid #D5C7B7;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-tactile);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.wax-envelope:hover {
+  transform: rotate(-2deg) scale(1.05);
+}
+
+.wax-envelope.shake {
+  animation: shake-refusal 0.5s var(--ease-spring);
+}
+
+@keyframes shake-refusal {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px) rotate(-4deg); }
+  40%, 80% { transform: translateX(8px) rotate(4deg); }
+}
+
+.wax-seal {
+  width: 38px;
+  height: 38px;
+  background: var(--tulip-deep-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(139, 38, 53, 0.4);
+  border: 2px solid #6E1B26;
+  z-index: 2;
+}
+
+.seal-monogram {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-weight: 700;
+  color: #F8E7E9;
+  letter-spacing: 0.5px;
+}
+
+.secret-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--tulip-deep-red);
+  margin-top: 10px;
+}
+
+/* Selection Button for Experiences */
+.btn-select-exp {
+  width: 100%;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-delicate);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-ink);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-organic);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-select-exp:hover {
+  background: var(--tulip-crimson);
+  color: #FFFFFF;
+  border-color: var(--tulip-crimson);
+}
+
+.experience-card.selected .btn-select-exp {
+  background: var(--tulip-crimson);
+  color: #FFFFFF;
+  border-color: var(--tulip-crimson);
+}
+
+/* ==========================================================================
+   STAGE 8: FINAL CONFIRMATION & PROPOSAL LOCK
+   ========================================================================== */
+.confirmation-content {
+  min-height: 80vh;
+  justify-content: center;
+  padding: 30px 0 40px;
+}
+
+.proposal-seal-bloom {
+  width: 160px;
+  height: 120px;
+  margin: 0 auto 20px;
+  animation: grand-bloom-entrance 1.2s var(--ease-spring) forwards;
+}
+
+@keyframes grand-bloom-entrance {
+  from {
+    transform: scale(0.6) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.grand-tulip-cluster {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 20px rgba(184, 58, 75, 0.15));
+}
+
+.confirmation-sequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.sub-headline {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--leaf-sage);
+  margin-bottom: 4px;
+}
+
+.proposal-title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 8vw, 46px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--tulip-deep-red);
+  margin-bottom: 12px;
+}
+
+.names-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-ink);
+  margin-bottom: 28px;
+}
+
+.name-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--tulip-crimson);
+  font-size: 28px;
+}
+
+/* Summary Ticket Card */
+.summary-ticket {
+  background: #FFFFFF;
+  border: 1px solid var(--border-delicate);
+  border-radius: 20px;
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lift);
+  text-align: left;
+  margin-bottom: 28px;
+  position: relative;
+  background-image: radial-gradient(circle at top left, transparent 10px, #FFFFFF 11px),
+                    radial-gradient(circle at top right, transparent 10px, #FFFFFF 11px);
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.ticket-type {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  color: var(--text-whisper);
+}
+
+.ticket-status {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: rgba(78, 110, 86, 0.12);
+  color: var(--leaf-deep-green);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.ticket-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ticket-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.ticket-value {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-ink);
+  text-align: right;
+}
+
+.ticket-value.highlight {
+  color: var(--tulip-crimson);
+  font-family: var(--font-serif);
+  font-size: 16px;
+}
+
+.ticket-divider {
+  height: 1px;
+  background: dashed var(--border-delicate);
+  margin: 18px 0 14px;
+}
+
+.ticket-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--leaf-sage);
+  text-align: center;
+}
+
+/* Submission Section */
+.submission-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.submission-prompt {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.btn-rsvp {
+  padding: 18px 48px;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+}
+
+.submission-status-msg {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.submission-status-msg.success {
+  color: var(--leaf-deep-green);
+}
+
+.submission-status-msg.error {
+  color: var(--tulip-deep-red);
+}
+
+/* Final Sign-off */
+.final-signoff {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.signoff-note {
+  font-size: 32px;
+  color: var(--tulip-crimson);
+  margin-bottom: 2px;
+}
+
+.signoff-author {
+  font-size: 13.5px;
+  color: var(--text-whisper);
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   TOAST MODAL / FEEDBACK
+   ========================================================================== */
+.toast-modal {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 1000;
+  width: 90%;
+  max-width: 420px;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.toast-modal.hidden {
+  transform: translateX(-50%) translateY(100px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toast-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-delicate);
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-lift);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toast-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(184, 58, 75, 0.1);
+  color: var(--tulip-crimson);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast-body {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.toast-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-ink);
+}
+
+.toast-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.btn-toast-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--text-whisper);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ==========================================================================
+   MOBILE & TOUCH REFINEMENTS
+   ========================================================================== */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 18px 12px 36px;
+  }
+  
+  .stage-heading {
+    font-size: 26px;
+  }
+  
+  .btn-tactile {
+    width: 100%;
+    padding: 16px 24px;
+  }
+  
+  .summary-ticket {
+    padding: 20px 18px;
+  }
+}

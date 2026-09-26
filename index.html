@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#F9F6F0" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>For Maryam</title>
+  
+  <!-- Typography: Fraunces (soft, editorial serif with character) & Plus Jakarta Sans (warm modern sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Botanical Background & Canvas for Growing Tulips -->
+  <div class="paper-grain" aria-hidden="true"></div>
+  <canvas id="tulip-canvas" class="tulip-canvas" aria-hidden="true"></canvas>
+
+  <!-- Sound Toggle Control -->
+  <button id="sound-toggle" class="sound-toggle" aria-label="Toggle ambient sound">
+    <svg class="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+    <svg class="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <span class="sound-tooltip">Sound</span>
+  </button>
+
+  <!-- Main Experience Container -->
+  <main id="app" class="app-container">
+
+    <!-- ==================== STAGE 0: OPENING ==================== -->
+    <section id="stage-opening" class="stage active" data-stage="opening">
+      <div class="stage-content opening-content">
+        <!-- Hero Botanical Solitary Tulip -->
+        <div class="solitary-tulip-wrap" id="solitary-tulip-anchor">
+          <svg class="botanical-tulip-hero" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stem -->
+            <path class="tulip-stem" d="M60 215 C60 170, 58 120, 60 78" stroke="#3A5A40" stroke-width="3" stroke-linecap="round"/>
+            <!-- Leaves -->
+            <path class="tulip-leaf leaf-left" d="M59 160 C38 145, 24 110, 32 75 C38 105, 48 135, 59 150" fill="#4A6B4F" stroke="#3A5A40" stroke-width="1.5" stroke-linejoin="round"/>
+            <path class="tulip-leaf leaf-right" d="M61 140 C80 125, 92 90, 85 60 C80 90, 72 120, 61 135" fill="#587D5D" stroke="#3A5A40" stroke-width="1.5" stroke-linejoin="round"/>
+            <!-- Flower Bloom -->
+            <g class="tulip-bloom-group">
+              <!-- Back Petal -->
+              <path class="petal petal-back" d="M60 78 C42 65, 45 32, 60 18 C75 32, 78 65, 60 78 Z" fill="#9E2A2B"/>
+              <!-- Left Petal -->
+              <path class="petal petal-left" d="M60 78 C35 70, 30 38, 50 22 C55 38, 58 60, 60 78 Z" fill="#C14953"/>
+              <!-- Right Petal -->
+              <path class="petal petal-right" d="M60 78 C85 70, 90 38, 70 22 C65 38, 62 60, 60 78 Z" fill="#D35D69"/>
+              <!-- Center Petal -->
+              <path class="petal petal-center" d="M60 78 C48 65, 48 35, 60 25 C72 35, 72 65, 60 78 Z" fill="#E2727D"/>
+              <!-- Highlight line -->
+              <path d="M60 30 C58 45, 58 65, 60 75" stroke="#F4ACB7" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="opening-dialogue">
+          <h1 class="opening-name typewriter-text" id="opening-name">MARYAM</h1>
+          <p class="opening-line delayed-fade line-1">I made something for you.</p>
+          <p class="opening-line delayed-fade line-2">But you have to play along first.</p>
+          <div class="button-wrap delayed-fade line-3">
+            <button id="btn-begin" class="btn-tactile btn-primary">
+              <span class="btn-text">BEGIN</span>
+              <span class="btn-shine"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 1: GAME PART 1 ==================== -->
+    <section id="stage-game-1" class="stage" data-stage="game-1">
+      <div class="stage-content">
+        <div class="section-tag">A TINY TEST</div>
+        <h2 class="stage-heading">Which one do you think has something to do with this?</h2>
+        <p class="stage-subtext note-handwriting">There are no wrong answers.</p>
+
+        <!-- 5 Botanical/Etched Objects -->
+        <div class="mystery-grid" id="mystery-objects-grid">
+          
+          <!-- Object 1: Tulip -->
+          <button class="mystery-card" data-object="tulip" aria-label="A blooming tulip">
+            <div class="card-art">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor">
+                <path d="M40 70 C40 55, 38 42, 40 32" stroke="#3A5A40" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M40 55 C28 48, 22 36, 26 24 C30 36, 35 46, 40 52" fill="#4A6B4F" stroke="#3A5A40" stroke-width="1.2"/>
+                <path d="M40 32 C28 26, 26 12, 40 5 C54 12, 52 26, 40 32 Z" fill="#C14953" stroke="#9E2A2B" stroke-width="1.5"/>
+                <path d="M40 32 C30 28, 30 14, 40 10 C50 14, 50 28, 40 32 Z" fill="#E2727D"/>
+              </svg>
+            </div>
+            <span class="card-label">A Tulip</span>
+          </button>
+
+          <!-- Object 2: Fish -->
+          <button class="mystery-card" data-object="fish" aria-label="A swimming fish">
+            <div class="card-art">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor">
+                <path d="M56 40 C45 30, 25 32, 16 40 C25 48, 45 50, 56 40 Z" fill="#F4A261" stroke="#E76F51" stroke-width="1.8"/>
+                <path d="M56 40 L68 30 V50 L56 40 Z" fill="#E76F51" stroke="#E76F51" stroke-width="1.5"/>
+                <circle cx="26" cy="38" r="2" fill="#264653"/>
+                <path d="M36 37 C38 41, 42 41, 44 37" stroke="#E76F51" stroke-width="1.2" stroke-linecap="round"/>
+                <!-- Bubble -->
+                <circle cx="12" cy="32" r="2.5" stroke="#457B9D" stroke-width="1" fill="none"/>
+              </svg>
+            </div>
+            <span class="card-label">A Little Fish</span>
+          </button>
+
+          <!-- Object 3: Bowling Ball -->
+          <button class="mystery-card" data-object="bowling" aria-label="A bowling ball">
+            <div class="card-art">
+              <svg viewBox="0 0 80 80" fill="none">
+                <circle cx="40" cy="40" r="24" fill="#2B2D42" stroke="#1D3557" stroke-width="2"/>
+                <circle cx="34" cy="32" r="3" fill="#EDF2F4"/>
+                <circle cx="44" cy="30" r="3" fill="#EDF2F4"/>
+                <circle cx="39" cy="42" r="3" fill="#EDF2F4"/>
+                <path d="M22 28 C26 20, 36 18, 44 20" stroke="#8D99AE" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              </svg>
+            </div>
+            <span class="card-label">A Bowling Ball</span>
+          </button>
+
+          <!-- Object 4: Movie Ticket -->
+          <button class="mystery-card" data-object="ticket" aria-label="A vintage movie ticket">
+            <div class="card-art">
+              <svg viewBox="0 0 80 80" fill="none">
+                <path d="M16 26 H64 V36 C60 36, 58 40, 60 44 C58 44, 60 48, 64 48 V58 H16 V48 C20 48, 22 44, 20 40 C22 40, 20 36, 16 36 Z" fill="#F4E9D8" stroke="#8C7A6B" stroke-width="1.8"/>
+                <line x1="32" y1="28" x2="32" y2="56" stroke="#8C7A6B" stroke-dasharray="2 2" stroke-width="1.2"/>
+                <text x="38" y="44" font-family="'Fraunces', serif" font-size="7" fill="#8C7A6B" font-weight="600" letter-spacing="1">ADMIT ONE</text>
+              </svg>
+            </div>
+            <span class="card-label">A Movie Ticket</span>
+          </button>
+
+          <!-- Object 5: Walking Shoe -->
+          <button class="mystery-card" data-object="shoe" aria-label="A walking shoe">
+            <div class="card-art">
+              <svg viewBox="0 0 80 80" fill="none" stroke="#2B2D42">
+                <path d="M18 48 C18 42, 26 38, 36 38 L48 42 L58 40 C62 42, 64 46, 62 50 L18 50 Z" fill="#E9C46A" stroke="#B8860B" stroke-width="1.8"/>
+                <path d="M16 50 H64 V54 C64 56, 60 56, 56 56 H20 C16 56, 16 52, 16 50 Z" fill="#264653"/>
+                <path d="M34 38 L30 30 C30 28, 34 26, 38 26 L42 34" stroke="#8C7A6B" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="36" y1="36" x2="44" y2="40" stroke="#FAF0CA" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <span class="card-label">A Walking Shoe</span>
+          </button>
+
+        </div>
+
+        <!-- Dynamic Reaction Banner -->
+        <div id="game-1-reaction" class="reaction-box hidden">
+          <p class="reaction-text" id="game-1-reaction-text"></p>
+          <button id="btn-next-game-1" class="btn-tactile btn-secondary">
+            <span>Keep going</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 2: GAME PART 2 (THE FISH) ==================== -->
+    <section id="stage-game-2" class="stage" data-stage="game-2">
+      <div class="stage-content">
+        <!-- Swimming Fish Ambient Character -->
+        <div class="swimming-fish-stage" id="swimming-fish-container">
+          <svg class="interactive-fish" id="interactive-fish-svg" viewBox="0 0 140 90" fill="none">
+            <!-- Fish Tail with gentle wave animation -->
+            <path class="fish-tail" d="M100 45 C120 25, 135 15, 132 45 C135 75, 120 65, 100 45 Z" fill="#E76F51"/>
+            <!-- Fish Body -->
+            <path d="M25 45 C45 20, 90 22, 105 45 C90 68, 45 70, 25 45 Z" fill="#F4A261" stroke="#E76F51" stroke-width="1.8"/>
+            <!-- Fins -->
+            <path class="fish-fin-top" d="M60 26 C68 12, 78 16, 75 27" fill="#E76F51"/>
+            <path class="fish-fin-bottom" d="M58 63 C65 75, 75 72, 72 63" fill="#E76F51"/>
+            <!-- Eye -->
+            <circle cx="42" cy="40" r="4.5" fill="#FFFFFF"/>
+            <circle cx="41" cy="40" r="2.5" fill="#264653"/>
+            <circle cx="40" cy="39" r="1" fill="#FFFFFF"/>
+            <!-- Smiling mouth -->
+            <path d="M28 47 Q33 50 36 46" stroke="#264653" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Scales pattern -->
+            <path d="M58 38 C62 42, 68 42, 70 38" stroke="#E76F51" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M65 48 C69 52, 75 52, 77 48" stroke="#E76F51" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <div class="bubbles-stream">
+            <span class="bubble b1"></span>
+            <span class="bubble b2"></span>
+            <span class="bubble b3"></span>
+          </div>
+        </div>
+
+        <div class="dialogue-block">
+          <p class="whisper-text">Okay, serious question.</p>
+          <h2 class="stage-heading">Your future fish needs a name.</h2>
+          <p class="stage-subtext">Choose wisely. He’s listening.</p>
+        </div>
+
+        <div class="options-pill-grid" id="fish-names-grid">
+          <button class="pill-btn" data-name="Professor Bubbles">Professor Bubbles</button>
+          <button class="pill-btn" data-name="Sir Finnegan">Sir Finnegan</button>
+          <button class="pill-btn" data-name="Neyem Jr.">Neyem Jr.</button>
+          <button class="pill-btn" data-name="Dliliha the 1st">Dliliha the 1st</button>
+          <button class="pill-btn" data-name="Sushi (Too Dark?)">Sushi (Too Dark?)</button>
+        </div>
+
+        <div id="game-2-reaction" class="reaction-box hidden">
+          <p class="reaction-text" id="game-2-reaction-text"></p>
+          <button id="btn-next-game-2" class="btn-tactile btn-secondary">
+            <span>Next</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 3: GAME PART 3 (THE DOG JOKE) ==================== -->
+    <section id="stage-game-3" class="stage" data-stage="game-3">
+      <div class="stage-content dog-stage-content">
+        
+        <!-- Dog Character Approaching -->
+        <div class="dog-container" id="dog-actor">
+          <svg class="dog-svg" viewBox="0 0 160 120" fill="none">
+            <!-- Dog Body -->
+            <path d="M50 70 C50 55, 65 50, 95 50 C115 50, 125 65, 125 80 C125 95, 110 95, 95 95 C65 95, 50 85, 50 70 Z" fill="#DDBEA9" stroke="#6B4D3A" stroke-width="2"/>
+            <!-- Tail (wagging) -->
+            <path class="dog-tail" d="M122 70 C135 60, 145 45, 140 35 C132 35, 128 50, 120 62" fill="#CB997E" stroke="#6B4D3A" stroke-width="1.8"/>
+            <!-- Head -->
+            <circle cx="45" cy="50" r="22" fill="#DDBEA9" stroke="#6B4D3A" stroke-width="2"/>
+            <!-- Ears -->
+            <path class="dog-ear-left" d="M30 40 C20 40, 18 55, 24 62 C28 62, 32 50, 32 42" fill="#A5A58D" stroke="#6B4D3A" stroke-width="1.8"/>
+            <path class="dog-ear-right" d="M55 35 C62 30, 68 45, 62 55 C58 55, 56 45, 55 35" fill="#A5A58D" stroke="#6B4D3A" stroke-width="1.8"/>
+            <!-- Cute Eyes -->
+            <circle cx="38" cy="48" r="3" fill="#2B2D42"/>
+            <circle cx="50" cy="48" r="3" fill="#2B2D42"/>
+            <circle cx="37" cy="47" r="1" fill="#FFFFFF"/>
+            <circle cx="49" cy="47" r="1" fill="#FFFFFF"/>
+            <!-- Nose & Tongue -->
+            <ellipse cx="44" cy="55" rx="3.5" ry="2.5" fill="#2B2D42"/>
+            <path class="dog-tongue" d="M43 58 C43 64, 47 64, 47 58 Z" fill="#E2727D"/>
+            <!-- Legs -->
+            <rect x="58" y="85" width="8" height="22" rx="4" fill="#CB997E" stroke="#6B4D3A" stroke-width="1.8"/>
+            <rect x="74" y="88" width="8" height="20" rx="4" fill="#CB997E" stroke="#6B4D3A" stroke-width="1.8"/>
+            <rect x="98" y="85" width="8" height="22" rx="4" fill="#CB997E" stroke="#6B4D3A" stroke-width="1.8"/>
+            <rect x="110" y="88" width="8" height="20" rx="4" fill="#CB997E" stroke="#6B4D3A" stroke-width="1.8"/>
+          </svg>
+          <div class="dog-bark-cloud">“woof?”</div>
+        </div>
+
+        <div class="dog-dialogue" id="dog-dialogue-box">
+          <p class="whisper-text">Wait.</p>
+          <h2 class="stage-heading">I forgot you’re scared of dogs.</h2>
+          <p class="stage-subtext note-handwriting">Quick, before he asks for head scratches.</p>
+          
+          <div class="dog-actions">
+            <button id="btn-banish-dog" class="btn-tactile btn-danger">
+              <span class="btn-text">MAKE IT GO AWAY</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="dog-resolved-dialogue" class="dog-dialogue hidden">
+          <h3 class="stage-heading serif-italic">There. Problem solved.</h3>
+          <p class="stage-subtext">You’re welcome, Dliliha.</p>
+          <button id="btn-next-game-3" class="btn-tactile btn-secondary">
+            <span>Continue</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 4: THE REVEAL ==================== -->
+    <section id="stage-reveal" class="stage" data-stage="reveal">
+      <div class="stage-content reveal-content">
+        
+        <div class="reveal-sequence" id="reveal-seq">
+          <p class="reveal-step step-1">Okay...</p>
+          <p class="reveal-step step-2">You made it.</p>
+          <h1 class="reveal-step step-3 main-proposal-headline">I have a date to ask you on.</h1>
+          <p class="reveal-step step-4">Actually...</p>
+          <p class="reveal-step step-5">I want to take you on our first date.</p>
+          <p class="reveal-step step-6">But I don't want to decide everything for you.</p>
+          <h2 class="reveal-step step-7 choose-headline">YOU GET TO CHOOSE.</h2>
+        </div>
+
+        <div class="reveal-action-wrap hidden" id="reveal-action">
+          <button id="btn-start-planning" class="btn-tactile btn-primary btn-bloom">
+            <span>Let's plan it</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 5: DATE SELECTION ==================== -->
+    <section id="stage-date" class="stage" data-stage="date">
+      <div class="stage-content date-planning-layout">
+        
+        <header class="planning-header">
+          <span class="step-indicator">Step 01 of 03</span>
+          <h2 class="stage-heading">When are you free for me?</h2>
+          <p class="stage-subtext">Pick any day from the next three weekends.</p>
+        </header>
+
+        <!-- Dynamic Weekend Picker Grid -->
+        <div class="weekends-container" id="weekends-container">
+          <!-- Populated dynamically via JS with real calculated dates -->
+        </div>
+
+        <div class="planning-footer">
+          <button id="btn-confirm-date" class="btn-tactile btn-primary" disabled>
+            <span>Next: Pick a Time</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 6: TIME SELECTION ==================== -->
+    <section id="stage-time" class="stage" data-stage="time">
+      <div class="stage-content date-planning-layout">
+        
+        <header class="planning-header">
+          <span class="step-indicator">Step 02 of 03</span>
+          <h2 class="stage-heading">And when should I steal you?</h2>
+          <p class="stage-subtext">Mornings give us the whole day, but you have full command.</p>
+        </header>
+
+        <div class="time-options-grid" id="time-options-grid">
+          
+          <!-- Morning (Primary highlighted) -->
+          <button class="time-card featured" data-time="Morning (Around 10:00 AM)">
+            <div class="time-badge">Recommended</div>
+            <div class="time-icon-art">
+              <svg viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="9" fill="#E9C46A" stroke="#E76F51" stroke-width="1.5"/>
+                <path d="M20 4v4M20 32v4M4 20h4M32 20h4M8.7 8.7l2.8 2.8M28.5 28.5l2.8 2.8M8.7 31.3l2.8-2.8M28.5 11.5l2.8-2.8" stroke="#E76F51" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="time-info">
+              <span class="time-title">Morning</span>
+              <span class="time-desc">Fresh air, full day ahead (around 10:00 AM)</span>
+            </div>
+          </button>
+
+          <!-- Late Morning -->
+          <button class="time-card" data-time="Late Morning (Around 11:30 AM)">
+            <div class="time-icon-art">
+              <svg viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="10" stroke="#4A6B4F" stroke-width="1.8"/>
+                <polyline points="20 14 20 20 25 20" stroke="#4A6B4F" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="time-info">
+              <span class="time-title">Late Morning</span>
+              <span class="time-desc">Sleep in a little, meet around 11:30 AM</span>
+            </div>
+          </button>
+
+          <!-- Afternoon -->
+          <button class="time-card" data-time="Afternoon (Around 2:00 PM)">
+            <div class="time-icon-art">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M6 28 C12 20, 28 20, 34 28" stroke="#F4A261" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="20" cy="18" r="6" fill="#F4A261"/>
+              </svg>
+            </div>
+            <div class="time-info">
+              <span class="time-title">Afternoon</span>
+              <span class="time-desc">Sun’s high, relaxed pace (around 2:00 PM)</span>
+            </div>
+          </button>
+
+          <!-- Evening -->
+          <button class="time-card" data-time="Evening (Around 5:30 PM)">
+            <div class="time-icon-art">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M24 10 C18 10, 13 15, 13 21 C13 27, 18 32, 24 32 C27 32, 29 31, 31 29 C25 29, 20 24, 20 18 C20 14, 22 11, 24 10 Z" fill="#2B2D42" stroke="#2B2D42"/>
+                <circle cx="12" cy="14" r="1" fill="#E9C46A"/>
+                <circle cx="28" cy="8" r="1.2" fill="#E9C46A"/>
+              </svg>
+            </div>
+            <div class="time-info">
+              <span class="time-title">Evening</span>
+              <span class="time-desc">Golden hour & city lights (around 5:30 PM)</span>
+            </div>
+          </button>
+
+          <!-- Custom Time input card -->
+          <div class="time-card custom-time-card">
+            <div class="time-icon-art">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path d="M12 20h16M20 12v16" stroke="#8C7A6B" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="time-info">
+              <span class="time-title">Your own exact time</span>
+              <div class="custom-time-input-wrap">
+                <input type="time" id="custom-time-input" value="10:30" />
+                <button id="btn-use-custom-time" class="btn-micro">Set</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="planning-footer">
+          <button id="btn-confirm-time" class="btn-tactile btn-primary" disabled>
+            <span>Next: Choose the Experience</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 7: DATE OPTIONS (THE EXPERIENCES) ==================== -->
+    <section id="stage-experiences" class="stage" data-stage="experiences">
+      <div class="stage-content date-experiences-layout">
+        
+        <header class="planning-header">
+          <span class="step-indicator">Step 03 of 03</span>
+          <h2 class="stage-heading">What kind of day should it be?</h2>
+          <p class="stage-subtext">Each one is crafted for us. Tap to explore & select.</p>
+        </header>
+
+        <div class="experiences-deck" id="experiences-deck">
+          
+          <!-- EXPERIENCE 1: A LITTLE DAY OUT -->
+          <article class="experience-card" data-exp-id="day_out">
+            <div class="exp-header">
+              <span class="exp-number">01</span>
+              <h3 class="exp-title">A little day out</h3>
+            </div>
+            
+            <p class="exp-quote">“We meet in the morning, walk around, find somewhere nice to eat, grab some snacks along the way, talk about everything and nothing, and just spend the day together.”</p>
+            
+            <!-- Interactive Visual: Continuous Animated Path -->
+            <div class="exp-interactive-art path-art-container">
+              <svg class="day-path-svg" viewBox="0 0 340 90" fill="none">
+                <!-- Meandering path -->
+                <path class="animated-journey-path" d="M20 50 C70 15, 110 80, 160 45 C210 10, 260 75, 320 40" stroke="#DDBEA9" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 6"/>
+                <!-- Path Waypoints -->
+                <g class="path-node" transform="translate(20, 50)">
+                  <circle r="6" fill="#F4A261"/>
+                  <text y="-10" text-anchor="middle" class="node-label">Morning meet</text>
+                </g>
+                <g class="path-node" transform="translate(110, 58)">
+                  <circle r="6" fill="#E76F51"/>
+                  <text y="18" text-anchor="middle" class="node-label">Walking</text>
+                </g>
+                <g class="path-node" transform="translate(180, 32)">
+                  <circle r="6" fill="#4A6B4F"/>
+                  <text y="-10" text-anchor="middle" class="node-label">Good food</text>
+                </g>
+                <g class="path-node" transform="translate(250, 62)">
+                  <circle r="6" fill="#D35D69"/>
+                  <text y="18" text-anchor="middle" class="node-label">Snacks & talks</text>
+                </g>
+                <g class="path-node" transform="translate(320, 40)">
+                  <circle r="7" fill="#C14953"/>
+                  <text y="-12" text-anchor="middle" class="node-label">Sunset</text>
+                </g>
+              </svg>
+            </div>
+
+            <button class="btn-select-exp" data-exp-id="day_out">
+              <span class="btn-select-text">Choose this day</span>
+            </button>
+          </article>
+
+          <!-- EXPERIENCE 2: SOMEWHERE QUIET -->
+          <article class="experience-card" data-exp-id="somewhere_quiet">
+            <div class="exp-header">
+              <span class="exp-number">02</span>
+              <h3 class="exp-title">Somewhere quiet</h3>
+            </div>
+            
+            <p class="exp-quote">“We find somewhere beautiful, sit down, talk, laugh, and take our time. No big plan. Just you and me.”</p>
+            
+            <!-- Interactive Visual: Serene Minimal Landscape Reveal -->
+            <div class="exp-interactive-art landscape-art-container" id="landscape-interactive">
+              <svg class="landscape-svg" viewBox="0 0 340 100" fill="none">
+                <!-- Distant Mountains -->
+                <path class="landscape-hill-back" d="M0 80 Q90 35 180 75 Q270 40 340 70 L340 100 L0 100 Z" fill="#E8ECE7"/>
+                <!-- Front Hill -->
+                <path class="landscape-hill-front" d="M0 90 Q120 55 240 85 Q290 70 340 95 L340 100 L0 100 Z" fill="#D3DCD0"/>
+                <!-- Solitary Bench / Spot with two small Tulips -->
+                <g class="landscape-tulips" transform="translate(160, 65)">
+                  <!-- Tulip 1 -->
+                  <path d="M0 20 C0 10, -2 5, 0 0" stroke="#3A5A40" stroke-width="1.5"/>
+                  <path d="M0 0 C-4 -3, -4 -9, 0 -12 C4 -9, 4 -3, 0 0 Z" fill="#C14953"/>
+                  <!-- Tulip 2 -->
+                  <path d="M12 22 C12 12, 14 6, 10 0" stroke="#3A5A40" stroke-width="1.5"/>
+                  <path d="M10 0 C6 -3, 6 -9, 10 -12 C14 -9, 14 -3, 10 0 Z" fill="#E2727D"/>
+                </g>
+                <!-- Gentle Sun -->
+                <circle cx="270" cy="30" r="14" fill="#FCEADE" opacity="0.8"/>
+              </svg>
+              <div class="interactive-hint">Breeze moves when you touch</div>
+            </div>
+
+            <button class="btn-select-exp" data-exp-id="somewhere_quiet">
+              <span class="btn-select-text">Choose this day</span>
+            </button>
+          </article>
+
+          <!-- EXPERIENCE 3: BOWLING DAY -->
+          <article class="experience-card" data-exp-id="bowling_adventure">
+            <div class="exp-header">
+              <span class="exp-number">03</span>
+              <h3 class="exp-title">A little adventure</h3>
+            </div>
+            
+            <p class="exp-quote">“We meet, walk around for a bit, grab something to eat, go bowling, probably get competitive, then finish with coffee or tea before heading home.”</p>
+            
+            <!-- Interactive Visual: Bowling Lane where you can flick/tap the ball -->
+            <div class="exp-interactive-art bowling-art-container" id="bowling-interactive-lane">
+              <div class="bowling-lane">
+                <div class="bowling-pins" id="bowling-pins">
+                  <span class="pin p1"></span>
+                  <span class="pin p2"></span>
+                  <span class="pin p3"></span>
+                  <span class="pin p4"></span>
+                  <span class="pin p5"></span>
+                </div>
+                <div class="bowling-ball-track">
+                  <div class="interactive-bowling-ball" id="interactive-ball" title="Tap to roll!">
+                    <svg viewBox="0 0 40 40">
+                      <circle cx="20" cy="20" r="16" fill="#2B2D42"/>
+                      <circle cx="15" cy="15" r="2" fill="#FFFFFF"/>
+                      <circle cx="21" cy="13" r="2" fill="#FFFFFF"/>
+                      <circle cx="18" cy="21" r="2" fill="#FFFFFF"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="interactive-hint" id="bowling-hint">Tap the ball to strike!</div>
+            </div>
+
+            <button class="btn-select-exp" data-exp-id="bowling_adventure">
+              <span class="btn-select-text">Choose this day</span>
+            </button>
+          </article>
+
+          <!-- EXPERIENCE 4: DRAW WITH ME -->
+          <article class="experience-card" data-exp-id="draw_together">
+            <div class="exp-header">
+              <span class="exp-number">04</span>
+              <h3 class="exp-title">Let’s make something terrible</h3>
+            </div>
+            
+            <p class="exp-quote">“We buy some drawing supplies, find somewhere beautiful, sit down and try to make something together. We can color, talk, laugh, make fun of each other’s drawings, and pretend we’re actually talented.”</p>
+            
+            <!-- Interactive Visual: Sketchpad / Drawing Canvas -->
+            <div class="exp-interactive-art drawing-art-container">
+              <div class="sketchpad-frame">
+                <canvas id="mini-sketch-canvas" width="280" height="120"></canvas>
+                <div class="pencil-cursor" id="pencil-tool">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                    <path d="M3 21l3-1 12-12-2-2L4 18l-1 3z" fill="#E76F51" stroke="#2B2D42" stroke-width="1.2"/>
+                    <path d="M14 6l2 2" stroke="#2B2D42" stroke-width="1.2"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="draw-controls">
+                <span class="interactive-hint">Doodle a little mark with your finger!</span>
+                <button type="button" id="btn-clear-sketch" class="btn-text-only">Clear</button>
+              </div>
+            </div>
+
+            <button class="btn-select-exp" data-exp-id="draw_together">
+              <span class="btn-select-text">Choose this day</span>
+            </button>
+          </article>
+
+          <!-- EXPERIENCE 5: SURPRISE ME -->
+          <article class="experience-card surprise-card" data-exp-id="surprise_me">
+            <div class="exp-header">
+              <span class="exp-number">05</span>
+              <h3 class="exp-title">Surprise me</h3>
+            </div>
+            
+            <p class="exp-quote">“You choose nothing. I’ll plan the whole thing. You just show up.”</p>
+            
+            <!-- Interactive Visual: Wax-Sealed Secret Envelope -->
+            <div class="exp-interactive-art envelope-art-container" id="secret-envelope-wrap">
+              <div class="wax-envelope" id="secret-envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-pocket"></div>
+                <div class="wax-seal" id="wax-seal">
+                  <span class="seal-monogram">Y×M</span>
+                </div>
+              </div>
+              <p class="secret-tagline" id="envelope-response-text">“Okay. Then I’m keeping the secret.”</p>
+              <div class="interactive-hint">A sealed secret just for you</div>
+            </div>
+
+            <button class="btn-select-exp" data-exp-id="surprise_me">
+              <span class="btn-select-text">Choose this day</span>
+            </button>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 8: CONFIRMATION & LOCK-IN ==================== -->
+    <section id="stage-confirmation" class="stage" data-stage="confirmation">
+      <div class="stage-content confirmation-content">
+        
+        <div class="proposal-seal-bloom" id="final-bloom-anchor">
+          <!-- Blooming Tulip Cluster SVG -->
+          <svg class="grand-tulip-cluster" viewBox="0 0 160 120" fill="none">
+            <!-- Left Tulip -->
+            <g transform="translate(30, 20) scale(0.75)">
+              <path d="M40 90 C35 65, 30 40, 35 15" stroke="#3A5A40" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M35 15 C20 10, 15 -10, 35 -20 C55 -10, 50 10, 35 15 Z" fill="#C14953"/>
+            </g>
+            <!-- Center Hero Tulip -->
+            <g transform="translate(50, 0)">
+              <path d="M30 110 C30 80, 28 50, 30 20" stroke="#3A5A40" stroke-width="3" stroke-linecap="round"/>
+              <path d="M30 20 C10 12, 8 -15, 30 -28 C52 -15, 50 12, 30 20 Z" fill="#E2727D"/>
+              <path d="M30 20 C18 15, 18 -5, 30 -15 C42 -5, 42 15, 30 20 Z" fill="#F4ACB7"/>
+            </g>
+            <!-- Right Tulip -->
+            <g transform="translate(75, 25) scale(0.7)">
+              <path d="M25 90 C30 65, 35 40, 28 15" stroke="#3A5A40" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M28 15 C12 10, 10 -10, 28 -20 C46 -10, 44 10, 28 15 Z" fill="#9E2A2B"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="confirmation-sequence">
+          <p class="whisper-text">Okay.</p>
+          <p class="sub-headline">It’s official.</p>
+          <h1 class="proposal-title">IT’S A DATE.</h1>
+          <div class="names-lockup">
+            <span class="name-m">Maryam</span>
+            <span class="name-amp">×</span>
+            <span class="name-y">Youness</span>
+          </div>
+
+          <!-- Summary Ticket Card -->
+          <div class="summary-ticket">
+            <div class="ticket-header">
+              <span class="ticket-type">FIRST DATE RESERVATION</span>
+              <span class="ticket-status">CONFIRMED</span>
+            </div>
+            
+            <div class="ticket-details">
+              <div class="ticket-row">
+                <span class="ticket-label">When</span>
+                <span class="ticket-value" id="summary-date-display">—</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Time</span>
+                <span class="ticket-value" id="summary-time-display">—</span>
+              </div>
+              <div class="ticket-row">
+                <span class="ticket-label">Plan</span>
+                <span class="ticket-value highlight" id="summary-plan-display">—</span>
+              </div>
+            </div>
+
+            <div class="ticket-divider"></div>
+            
+            <p class="ticket-note">“I’ll take care of the rest.”</p>
+          </div>
+
+          <!-- Real Email Submission Form / Trigger -->
+          <div class="submission-section" id="submission-wrapper">
+            <p class="submission-prompt">Send your choices to Youness:</p>
+            <button id="btn-send-rsvp" class="btn-tactile btn-primary btn-rsvp">
+              <span class="btn-text">Lock in our date</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+            </button>
+            <p id="submission-status" class="submission-status-msg hidden"></p>
+          </div>
+
+          <!-- Final Personal Sign-off -->
+          <div class="final-signoff" id="final-signoff">
+            <p class="signoff-note note-handwriting">See you soon, Dliliha.</p>
+            <span class="signoff-author">— Youness</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast Modal for Network / Success feedback -->
+  <div id="toast-modal" class="toast-modal hidden" role="alert">
+    <div class="toast-card">
+      <div class="toast-icon-wrap" id="toast-icon"></div>
+      <div class="toast-body">
+        <h4 id="toast-title" class="toast-title">Message</h4>
+        <p id="toast-desc" class="toast-desc">Description</p>
+      </div>
+      <button id="btn-close-toast" class="btn-toast-close" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
