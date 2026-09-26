@@ -39,7 +39,7 @@ const CONFIG = {
    */
   emailService: {
     // Paste your Formspree endpoint URL here:
-    formspreeEndpoint: "", // e.g. "https://formspree.io/f/YOUR_FORM_ID"
+    formspreeEndpoint: "https://formspree.io/f/xeaordaj", // e.g. "https://formspree.io/f/YOUR_FORM_ID"
 
     // Optional: EmailJS credentials if you choose EmailJS instead of Formspree
     emailjs: {
@@ -49,7 +49,7 @@ const CONFIG = {
     },
 
     // Destination email address for fallback (e.g. mailto or record)
-    targetEmail: "youness@example.com"
+    targetEmail: "younesouaddar961@gmail.com"
   }
 };
 
